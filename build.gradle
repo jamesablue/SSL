@@ -1,0 +1,97 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
+		classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: "org.sonarqube"
+apply plugin: 'docker'
+
+jar {
+	baseName = 'SSLDemo-micro'
+	version = '0.1.0'
+	
+	manifest {
+		attributes 'Main-Class': 'com.example.SSL.Application'
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencyManagement {
+	imports {
+		mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.228'
+	}
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf"){
+    exclude module : 'spring-boot-starter-logging'}
+    compile("org.springframework.boot:spring-boot-devtools"){
+    exclude module : 'spring-boot-starter-logging'}
+    compile("org.springframework.boot:spring-boot-starter-tomcat"){
+    exclude module : 'spring-boot-starter-logging'}
+    compile("org.springframework.boot:spring-boot-starter-actuator"){
+    exclude module : 'spring-boot-starter-logging'}
+    compile("org.springframework.boot:spring-boot-starter-security"){
+    exclude module : 'spring-boot-starter-logging'}
+    compile("com.fasterxml.jackson.core:jackson-databind")
+    compile('com.amazonaws:aws-java-sdk-s3')
+    compile('com.amazonaws:aws-java-sdk-sqs')
+    compile('com.amazonaws:aws-java-sdk-sts')
+    //compile('com.amazonaws:aws-java-sdk')
+    compile('commons-io:commons-io:2.5')
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    //compile('org.springframework.data:spring-data-oracle:1.2.1.RELEASE')
+    //compile('com.oracle.jdbc:ojdbc7:12.1.0.2') // this is direct from https://blogs.oracle.com/dev2dev/entry/oracle_maven_repository_instructions_for
+	//compile group: 'org.postgresql', name: 'postgresql', version: '9.4-1201-jdbc41'
+	compile('org.apache.httpcomponents:httpclient:4.5.3')
+
+	//logging
+    compile 'log4j:log4j:1.2.17'
+	compile 'org.slf4j:slf4j-api:1.7.5'
+	compile 'org.slf4j:slf4j-log4j12:1.7.5'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    compile group: 'org.json', name: 'json', version: '20170516'
+    
+    //email
+    //compile group: 'javax.mail', name: 'mail', version: '1.4.1'	
+	//compile("org.springframework.boot:spring-boot-starter-data-jpa"){
+    //exclude module : 'spring-boot-starter-logging'}
+	//compile('org.postgresql:postgresql:9.4-1201-jdbc4')
+	
+	testCompile("junit:junit")
+	testCompile("org.springframework.boot:spring-boot-starter-test"){
+    exclude module : 'spring-boot-starter-logging'}
+    
+    // Common Library local build path
+    //compile files("src/main/resources/claims3-mf-interfaces-common-0.1.1.jar")
+    
+    // SAML
+    compile 'org.springframework.security.extensions:spring-security-saml2-core:1.0.2.RELEASE'
+}
+
+bootRun {
+	systemProperties(System.getProperties())
+}
+
+task getDeps(type: Copy) {
+	from sourceSets.main.runtimeClasspath
+	into 'runtime/'
+}
+
+
