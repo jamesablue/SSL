@@ -43,10 +43,10 @@ public class TestControlelr {
 	@Autowired
 	private SSLConfig sslConfig;
 	
-	@Value("$targeturl")
+	@Value("${targeturl}")
 	private String targeturl;
 	
-	@Value("$targetport")
+	@Value("${targetport}")
 	private String targetport;
 	
 	@RequestMapping("test")
