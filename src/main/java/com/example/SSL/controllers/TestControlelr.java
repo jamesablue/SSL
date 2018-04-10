@@ -64,7 +64,7 @@ public class TestControlelr {
 	{
 		try
 		{
-			String uri = "https://" + targeturl + ":" + targetport + "/api/v1/getMessage";
+			String uri = "https://" + targeturl + ":" + targetport + "/getMessage";
 			String message = "message1";
 			
 			HttpHeaders requestHeaders = new HttpHeaders();
