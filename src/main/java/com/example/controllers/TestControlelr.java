@@ -21,6 +21,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -42,6 +43,12 @@ public class TestControlelr {
 	@Autowired
 	private SSLConfig sslConfig;
 	
+	@Value("$targeturl")
+	private String targeturl;
+	
+	@Value("$targetport")
+	private String targetport;
+	
 	@RequestMapping("/test")
 	public String test() {
 		return "test";
@@ -52,7 +59,7 @@ public class TestControlelr {
 	{
 		try
 		{
-			String uri = "https://localhost:9092/api/v1/getMessage";
+			String uri = "https://" + targeturl + ":" + targetport + "/api/v1/getMessage";
 			String message = "message1";
 			
 			HttpHeaders requestHeaders = new HttpHeaders();
@@ -63,7 +70,7 @@ public class TestControlelr {
 			
 			HttpGet getTest = new HttpGet("https://localhost:9092/api/v1/test");
 			
-			HttpPost postMessage = new HttpPost("https://localhost:9092/api/v1/getMessage");
+			HttpPost postMessage = new HttpPost(uri);
 			List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
 			urlParameters.add(new BasicNameValuePair("message","message from SSL1"));
 			
