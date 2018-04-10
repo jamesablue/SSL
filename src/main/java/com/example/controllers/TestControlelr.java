@@ -54,6 +54,11 @@ public class TestControlelr {
 		return "test";
 	}
 	
+	@RequestMapping("/") 
+	public String root() {
+		return "This is the root;";
+	}
+	
 	@RequestMapping("/sendToSSL2")
 	public String sendToSSL2()
 	{
