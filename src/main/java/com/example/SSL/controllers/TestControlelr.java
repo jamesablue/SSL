@@ -104,6 +104,12 @@ public class TestControlelr {
 		}
 	}
 	
+	@RequestMapping("/getMessage")
+	public String getMessage(HttpEntity<String> requestEntity) {
+		System.out.println(requestEntity.getBody());
+		return requestEntity.getBody();
+	}
+	
 	@RequestMapping("/sendMessage")
 	public String sendMessage()
 	{
