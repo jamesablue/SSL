@@ -33,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
 import com.example.SSL.SSLConfig;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/")
 public class TestControlelr {
 	//private static final Logger logger = Logger.getLogger("SSLDemo");
 	
