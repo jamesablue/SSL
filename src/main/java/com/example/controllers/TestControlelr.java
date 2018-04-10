@@ -49,12 +49,12 @@ public class TestControlelr {
 	@Value("$targetport")
 	private String targetport;
 	
-	@RequestMapping("/test")
+	@RequestMapping("test")
 	public String test() {
 		return "test";
 	}
 	
-	@RequestMapping("/") 
+	@RequestMapping("") 
 	public String root() {
 		return "This is the root;";
 	}
