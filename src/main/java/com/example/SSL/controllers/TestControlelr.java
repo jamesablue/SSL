@@ -1,4 +1,4 @@
-package com.example.controllers;
+package com.example.SSL.controllers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
